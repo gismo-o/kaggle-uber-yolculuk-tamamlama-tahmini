@@ -1,0 +1,9 @@
+[project]
+name = "kaggle-ml-uv-demo"
+version = "0.1.0"
+dependencies = [
+  "pandas",
+  "scikit-learn",
+  "matplotlib",
+  "seaborn",
+]
