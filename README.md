@@ -8,15 +8,10 @@ Bu doğrultuda çalışma, [***Uber Ride Analytics Dataset***](https://www.kaggl
 ### ADIMLAR:
 1. Veri Temizleme
 - Booking Status normalizasyonu ve ikili hedefe (Completed=1, diğer durumlar=0) map etme.
-
 - Booking ID duplikasyonları: aynı ID’nin en son statüsü tutularak tekilleştirme.
-
 - "CNR...", "CID..." gibi tırnaklı ID alanlarının strip edilmesi.
-
 - Date + Time → booking_dt zaman damgası; buradan hour, dayofweek, is_weekend türetildi.
-
 - Eksik değerler: skor ve parasal alanlarda gerektiği yerde impute (median) ya da kullanılmayan kolonlardan çıkarım.
-
 - 176 pickup ve 176 drop lokasyon ismi: trim/format kontrolü.
 
 2. Keşifsel Veri Analizi (EDA)
@@ -82,3 +77,5 @@ Eşik = 0.19 (class 0 F1 optimize)
 |     1 |     0.938 |  0.998 |    0.967 |  18 449 |
 
 ***yorum:*** 0.19 eşiği ile accuracy ve macro-F1 artıyor; class 1 (tamamlananlar) için recall ≈ 0.998 değerine ulaşılıyor. Class 0’da recall biraz düşse de F1 0.942 ile güçlü.
+
+**Sonuç:** 2024 Uber yolculuk verisiyle, veri temizleme ve EDA sonrası (duplike/format/sızıntı giderimi) Booking Value için log1p, saat/gün için döngüsel sinyaller ve top-N lokasyon özellikleri üreterek class-weight’li LightGBM eğittik; iptal sınıfı F1’ini maksimize eden eşik seçip (AUC≈0.994), SHAP ile etkileri açıkladık ve model/ön-işlem/rapor/figür artefaktlarını repoya kaydettik.
